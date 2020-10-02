@@ -1,0 +1,23 @@
+@include "common.sinc"
+
+# Problem 1
+# With the label missing the following error occurs
+# ERROR    Main section: Could not resolve at least 1 variable size (SleighCompile)
+:test_1 reg is op=1 & mode & reg {
+    reg=0;
+    local y:1 = (mode==0);
+    if(y) goto <END>;
+    #<LABEL0>
+    reg=1;
+    <END>
+}
+
+# Problem 2
+# Opposite problem of Problem 1
+# Compiles correctly if the <LABEL0> is commented out
+:test_2 reg is op=2 & reg {
+    if(reg==0) goto <END>;
+    <LABEL0>
+    reg=0;
+    <END>
+}

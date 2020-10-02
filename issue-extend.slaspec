@@ -1,0 +1,15 @@
+@include "common.sinc"
+
+# Problem 1
+# Generates the following error
+# ERROR    Main section: Could not resolve at least 1 variable size (SleighCompile)
+:test_1 is op=1 & mode & reg {
+    reg=sext(mode);
+}
+
+# Problem 2
+# Generates the following error
+# ERROR    Main section: Could not resolve at least 1 variable size (SleighCompile)
+:test_2 is op=2 & mode & reg {
+    reg=zext(mode);
+}

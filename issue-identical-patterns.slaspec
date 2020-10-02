@@ -1,0 +1,11 @@
+@include "common.sinc"
+
+# This attempts to implement variable length instructions as described in 
+# 7.4.4.1 of the Sleigh manual
+
+define token immtoken(16)
+    imm16=(0,15);
+
+:inc reg is op=2 & reg {}
+:add reg,imm16 is op=3 & reg ; imm16 {}
+:add reg is op=3 & reg {}

@@ -1,0 +1,43 @@
+@include "common.sinc"
+
+# Work Around. 
+# This compiles, but I don't have a good feeling when (1==1) returns a value larger than 1
+# Needs further research
+:solution is op=0 & mode & reg {
+    reg=0;
+    local x:1 = (mode==0);
+    if x goto <END>;
+    <LABEL0>
+    reg=1;
+    <END>
+}
+
+# Problem 1
+# This generates the following errors
+# ERROR   Problem in "Equality(==)" operator (ConsistencyChecker)
+# ERROR   Output must be a boolean (size 1) (ConsistencyChecker)
+# ERROR   Problem in "Conditional branch(if)" operator (ConsistencyChecker)
+# ERROR   Input must be a boolean (size 1) (ConsistencyChecker)
+:test_1 is op=1 & mode & reg {
+    reg=0;
+    if(mode==0) goto <END>;
+    <LABEL0>
+    reg=1;
+    <END>
+}
+
+# Problem 2
+# This generates the following errors
+# ERROR   Problem in "Boolean or(||)" operator (ConsistencyChecker)
+# ERROR   Output must be a boolean (size 1) (ConsistencyChecker)
+# ERROR   Problem in "Conditional branch(if)" operator (ConsistencyChecker)
+# ERROR   Input must be a boolean (size 1) (ConsistencyChecker)
+:test_2 is op=2 & mode & reg {
+    local x:1 = (mode!=1);
+    local y:1 = (reg!=1);
+    reg=0;
+    if(x||y) goto <END>;
+    <LABEL0>
+    reg=1;
+    <END>
+}
